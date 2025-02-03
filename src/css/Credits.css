@@ -5,8 +5,8 @@ footer.credits {
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background-color: rgb(8, 34, 63);
-  color: #ccc;
+  background-color: var(--text-color);
+  color: var(--primary-color);
   text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   font-family: "IBM Plex Mono", monospace;
@@ -29,7 +29,6 @@ footer.credits {
 .img-footer {
   width: 32px;
   height: 32px;
-  filter: brightness(0) invert(1);
 }
 
 .link-networks:hover .img-footer {
@@ -40,7 +39,7 @@ footer.credits {
 /* Sección de copyright */
 .copyright {
   font-size: 0.9rem;
-  color: #888;
+  color: var(--card-bg);
   margin-top: 1rem;
 }
 

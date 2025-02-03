@@ -1,0 +1,62 @@
+/* Estilos generales del header */
+.header-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--bg-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+/* Contenedor del logo y título */
+.container-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Estilos del logo */
+.logo-menu {
+  width: 50px;
+  height: auto;
+  filter: invert(0%);
+  transition: filter 0.3s ease;
+}
+
+.dark-mode .logo-menu {
+  filter: invert(100%);
+}
+
+/* Estilos del título */
+.tittle-menu {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* Estilos del nav */
+.container-nav {
+  display: flex;
+}
+
+.nav-menu .list-nav {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+.list-nav-link a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.list-nav-link a:hover {
+  background: var(--primary-color);
+  color: #fff;
+}

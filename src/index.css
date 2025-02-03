@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Triodion&display=swap");
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -348,4 +349,33 @@ template {
 
 [hidden] {
   display: none;
+}
+
+[data-theme="light"] {
+  /* Modo claro */
+  --bg-color: #f5efff;
+  --primary-color: #a294f9;
+  --secondary-color: #cdc1ff;
+  --accent-color: #e5d9f2;
+  --text-color: #2e073f;
+  --card-bg: #ffffff;
+}
+
+/* ===== Modo oscuro ===== */
+[data-theme="dark"] {
+  --bg-color: #2e073f;
+  --primary-color: #ebd3f8;
+  --secondary-color: #ad49e1;
+  --accent-color: #7a1cac;
+  --text-color: #f5efff;
+  --card-bg: #3a064a;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Triodion", serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
 }
