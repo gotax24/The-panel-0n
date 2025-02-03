@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import "../css/Menu.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import Switch from "./SwitchTheme";
 
 const Menu = () => {
   const logOut = () => {
@@ -46,9 +47,7 @@ const Menu = () => {
                 </a>
               </li>
 
-              <button onClick={toggleTheme}>
-                {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
-              </button>
+              <Switch theme={theme} toggleTheme={toggleTheme}/>
             </ul>
           </nav>
         </div>

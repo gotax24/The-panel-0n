@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import desert from "../assets/desert.svg";
+import "../css/Page404.css"
 
 const page404 = () => {
   return (
