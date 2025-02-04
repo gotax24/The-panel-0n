@@ -1,10 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../css/Menu.css";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import Switch from "./SwitchTheme";
 
 const Menu = () => {
+  const navigation = useNavigate();
+
   const logOut = () => {
     navigation("/login");
   };
@@ -42,12 +44,12 @@ const Menu = () => {
               </li>
 
               <li className="list-nav-link">
-                <a href="#" onClick={logOut}>
+                <a href="#!" onClick={logOut}>
                   Cerrar sesion
                 </a>
               </li>
 
-              <Switch theme={theme} toggleTheme={toggleTheme}/>
+              <Switch theme={theme} toggleTheme={toggleTheme} />
             </ul>
           </nav>
         </div>
