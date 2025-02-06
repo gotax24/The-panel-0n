@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/Login.css";
 
 const Login = () => {
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigate();
+
+  const API = import.meta.env.VITE_API_URL
 
   const [user, setUser] = useState({
     email: "",
@@ -19,16 +21,14 @@ const Login = () => {
   const signIn = (e) => {
     e.preventDefault();
     if (user.email === "" || user.password === "") {
-      setError("Complete los campos para avanzar");
-      setLoading(false);
-      return;
+      return setError("Complete los campos para avanzar"), setLoading(false);
     }
 
     setLoading(true);
     setError(null);
 
     axios
-      .get("https://679ab45c747b09cdcccf88a3.mockapi.io/api/users")
+      .get(API+"users")
       .then((response) => {
         const users = response.data;
         const findUser = users.find(
@@ -52,6 +52,8 @@ const Login = () => {
   };
 
   const handleInputChange = (field, value) => {
+    setError(null);
+
     setUser((prevUser) => ({
       ...prevUser,
       [field]: value,
@@ -100,50 +102,14 @@ const Login = () => {
         </form>
         <p>
           No tienes una cuenta?{" "}
-          <a href="" className="a2">
+          <Link to="/CreateAnAccount" className="a2">
             Registrate!
-          </a>
+          </Link>
         </p>
-        {error && (
-          <span className="error-login">Ocurrio un error: {error}</span>
-        )}
+        {error && <span className="error-login">{error}</span>}
       </div>
     </>
   );
 };
 
 export default Login;
-
-/**<!-- From Uiverse.io by glisovic01 --> 
-<div className="login-box">
-  <p>Login</p>
-  <form>
-    <div className="user-box">
-       <input
-                type="email"
-                autoComplete="on"
-                required
-                onChange={(e) => handleInputChange("email", e.target.value)}
-              />
-      <label>Correo</label>
-    </div>
-    <div className="user-box">
-       <input
-                className="input-login"
-                type="password"
-                autoComplete="on"
-                required
-                onChange={(e) => handleInputChange("password", e.target.value)}
-              />
-      <label>Contraseña</label>
-    </div>
-    <a onClick={signIn} href="#">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      {loading ? "Entrando..." : "Entrar"}
-    </a>
-  </form>
-  <p>No tienes una cuenta? <a href="" className="a2">Registrate!</a></p>
-</div> */

@@ -1,0 +1,246 @@
+/* ===== Contenedor Principal ===== */
+.container-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* ===== Logo y Nombre ===== */
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem; /* Espacio entre el logo y el título */
+}
+
+.logo-singUp {
+  width: 80px;
+  height: auto;
+}
+
+.title-singUp {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+/* ===== Mensaje de Bienvenida ===== */
+.sub-title-singUp {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+  color: var(--text-color);
+}
+
+/* ===== Contenedor del singUp Box ===== */
+.container-singUp-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+/* ===== Ajustes Responsivos ===== */
+@media (max-width: 768px) {
+  .logo-title-container {
+    flex-direction: column;
+  }
+
+  .container-singUp-box {
+    height: auto;
+    padding-top: 2rem;
+  }
+}
+
+/* From Uiverse.io by glisovic01 */
+.singUp-box {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  margin: 20px auto;
+  transform: translate(-50%, -55%);
+  background: var(--card-bg);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.singUp-box p:first-child {
+  margin: 0 0 30px;
+  padding: 0;
+  color: var(--text-color);
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.singUp-box .user-box {
+  position: relative;
+}
+
+.singUp-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--text-color);
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid var(--secondary-color);
+  outline: none;
+  background: transparent;
+}
+
+.singUp-box .user-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--text-color);
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.singUp-box .user-box input:focus ~ label,
+.singUp-box .user-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: var(--text-color);
+  font-size: 12px;
+}
+
+.singUp-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: var(--text-color);
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 40px;
+  letter-spacing: 3px;
+}
+
+.singUp-box a:hover {
+  background: var(--accent-color);
+  color: var(--text-color);
+  border-radius: 5px;
+}
+
+.singUp-box a span {
+  position: absolute;
+  display: block;
+}
+
+.singUp-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-color));
+  animation: btn-anim1 1.5s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.singUp-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--accent-color));
+  animation: btn-anim2 1.5s linear infinite;
+  animation-delay: 0.375s;
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+.singUp-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, var(--accent-color));
+  animation: btn-anim3 1.5s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.singUp-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, var(--accent-color));
+  animation: btn-anim4 1.5s linear infinite;
+  animation-delay: 1.125s;
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+
+.singUp-box p:last-child {
+  color: var(--primary-color);
+  font-size: 14px;
+}
+
+.singUp-box a.a2 {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.singUp-box a.a2:hover {
+  background: transparent;
+  color: var(--accent-color);
+  border-radius: 5px;
+}
+
+.error-singUp {
+  color: red;
+  font-size: 16px;
+}
