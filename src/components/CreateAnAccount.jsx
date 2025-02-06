@@ -3,6 +3,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/CreateAnAccount.css";
+import { handleInputChange } from "../helpers/HandleInputChange";
 
 const CreateAnAccount = () => {
   const navigation = useNavigate();
@@ -29,23 +30,14 @@ const CreateAnAccount = () => {
       .post(API+"users", user)
       .then((response) => {
         const users = response.data;
-        console.log(users);
         navigation("/");
+        localStorage.setItem(`tokenUser`,users.token)
       })
       .catch((e) => {
         setLoading(false);
         setError(e.response.data.error);
         console.error(e);
       });
-  };
-
-  const handleInputChange = (fields, value) => {
-    if (fields === "email" && !value.includes("@")) return setError("Ingresar un correo valido");
-
-    setUser((prevUser) => ({
-      ...prevUser,
-      [fields]: value,
-    }));
   };
 
   return (
@@ -66,7 +58,7 @@ const CreateAnAccount = () => {
               type="text"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("name", e.target.value)}
+              onChange={(e) => handleInputChange("name", e.target.value, setUser, setError)}
             />
             <label>Nombre</label>
             <div className="user-box">
@@ -74,7 +66,7 @@ const CreateAnAccount = () => {
                 type="text"
                 autoComplete="on"
                 required
-                onChange={(e) => handleInputChange("lastName", e.target.value)}
+                onChange={(e) => handleInputChange("lastName", e.target.value, setUser, setError)}
               />
               <label>Apellido</label>
             </div>
@@ -83,7 +75,7 @@ const CreateAnAccount = () => {
                 type="email"
                 autoComplete="on"
                 required
-                onChange={(e) => handleInputChange("email", e.target.value)}
+                onChange={(e) => handleInputChange("email", e.target.value, setUser, setError)}
               />
               <label>Correo</label>
             </div>
@@ -94,11 +86,11 @@ const CreateAnAccount = () => {
               type="password"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("password", e.target.value)}
+              onChange={(e) => handleInputChange("password", e.target.value, setUser, setError)}
             />
             <label>Contraseña</label>
           </div>
-          <a onClick={SingUp} href="#">
+          <a onClick={SingUp}>
             <span></span>
             <span></span>
             <span></span>

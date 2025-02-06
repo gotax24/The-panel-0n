@@ -3,6 +3,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/Login.css";
+import { handleInputChange } from "../helpers/HandleInputChange";
 
 const Login = () => {
   const { theme } = useContext(ThemeContext);
@@ -37,7 +38,7 @@ const Login = () => {
 
         if (findUser) {
           setLoading(true);
-          localStorage.setItem("tokeDashboard", findUser.token);
+          localStorage.setItem("tokenUser", findUser.token);
           navigation("/");
         } else {
           setLoading(false);
@@ -51,6 +52,7 @@ const Login = () => {
       });
   };
 
+  /*
   const handleInputChange = (field, value) => {
     setError(null);
 
@@ -59,6 +61,7 @@ const Login = () => {
       [field]: value,
     }));
   };
+  */
 
   return (
     <>
@@ -78,7 +81,7 @@ const Login = () => {
               type="email"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("email", e.target.value)}
+              onChange={(e) => handleInputChange("email", e.target.value, setUser, setError)}
             />
             <label>Correo</label>
           </div>
@@ -88,7 +91,7 @@ const Login = () => {
               type="password"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("password", e.target.value)}
+              onChange={(e) => handleInputChange("password", e.target.value, setUser, setError)}
             />
             <label>Contraseña</label>
           </div>

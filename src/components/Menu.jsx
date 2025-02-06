@@ -6,11 +6,11 @@ import Switch from "./SwitchTheme";
 
 const Menu = () => {
   const navigation = useNavigate();
-
   const logOut = () => {
+    localStorage.removeItem("tokenUser");
     navigation("/login");
   };
-
+  
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
