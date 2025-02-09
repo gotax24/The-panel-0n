@@ -32,7 +32,7 @@ const Menu = () => {
               </li>
 
               <li className="list-nav-link">
-                <NavLink to="/list">Lista de tarea</NavLink>
+                <NavLink to="/tasks">Tareas</NavLink>
               </li>
 
               <li className="list-nav-link">

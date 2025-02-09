@@ -1,8 +1,9 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Menu from "./Menu";
 import Credits from "./credits";
 
 function App() {
+  const navigation = useNavigate();
 
   if(!localStorage.getItem("tokenUser")) return navigation("/login")
 
