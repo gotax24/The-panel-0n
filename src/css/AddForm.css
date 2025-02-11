@@ -1,0 +1,127 @@
+/* Estilos generales */
+.header-add-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.header-add-form img {
+  width: 30px;
+  height: 30px;
+}
+
+.header-add-form h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Contenedor del formulario */
+.content-fomr {
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+/* Formulario */
+.form-add {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Etiquetas */
+.label-form {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Inputs y Textarea */
+.input-form,
+.description-add {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid var(--secondary-color);
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.input-form:focus,
+.description-add:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Radios */
+.state-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.p-form {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.label-radio-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.radio-form {
+  accent-color: var(--accent-color);
+}
+
+/* Botón */
+.button-form {
+  background: var(--primary-color);
+  color: var(--bg-color);
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-form:hover {
+  background: var(--secondary-color);
+}
+
+/* Mensaje de error */
+.error-form {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .content-fomr {
+    width: 90%;
+  }
+
+  .header-add-form h1 {
+    font-size: 18px;
+  }
+}

@@ -6,5 +6,7 @@ export const handleInputChange = (fields, value, setState, setState2) => {
       [fields]: value,
     }));
 
-    return setState2(null)
+    if (setState2) {
+      setState2(null);
+    }
   };
