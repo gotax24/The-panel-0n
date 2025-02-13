@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import axios from "axios";
 import PropTypes from "prop-types";
+import deleteDark from "../assets/delete-dark.svg";
+import deleteLight from "../assets/delete-light.svg";
 
 const DeleteForm = ({ title, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);
@@ -31,7 +33,10 @@ const DeleteForm = ({ title, setData, closeModal }) => {
   return (
     <>
       <div className="header-form">
-        <img src="" alt="Imagen de eliminar" />
+        <img
+          src={theme === "dark" ? deleteLight : deleteDark}
+          alt="Imagen de eliminar"
+        />
         <h1>Eliminar {title}</h1>
       </div>
       <div>

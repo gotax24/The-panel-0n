@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-
+import addDark from "../assets/add-dark.svg";
+import addLight from "../assets/add-light.svg";
 import { handleInputChange } from "../helpers/HandleInputChange";
 import "../css/AddForm.css";
 import PropTypes from "prop-types";
@@ -48,7 +49,7 @@ const AddForm = ({ title, setData, data, closeModal }) => {
   return (
     <>
       <div className="header-form">
-        <img src="" alt="imagen de suma" />
+        <img src={theme === "dark" ? addLight : addDark} alt="imagen de suma" />
         <h1>Agrega a {title}</h1>
       </div>
       <div className="content-form">

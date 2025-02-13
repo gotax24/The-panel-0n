@@ -6,6 +6,7 @@ import Modal from "./Modal";
 import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import DeleteForm from "./DeleteForm";
+import "../css/Task.css";
 
 const Task = () => {
   const API = import.meta.env.VITE_API_URL;
@@ -44,8 +45,6 @@ const Task = () => {
       });
   }, [API]);
 
-  console.log(data);
-
   if (loading) return <Loading />;
   if (error) return <p>{error}</p>;
 
@@ -54,15 +53,17 @@ const Task = () => {
       <div className="header">
         <h1 className="title-task">Administrador de tareas</h1>
       </div>
-      <button className="button-task" onClick={openAddModal}>
-        Crear tarea
-      </button>
-      <button className="button-task" onClick={openEditModal}>
-        Editar tarea
-      </button>
-      <button className="button-task" onClick={openDeleteModal}>
-        Eliminar tarea
-      </button>
+      <div className="button-container">
+        <button className="button-task" onClick={openAddModal}>
+          Crear tarea
+        </button>
+        <button className="button-task" onClick={openEditModal}>
+          Editar tarea
+        </button>
+        <button className="button-task" onClick={openDeleteModal}>
+          Eliminar tarea
+        </button>
+      </div>
 
       <Modal isOpen={isAddOpen} closeModal={closeAddModal}>
         <AddForm
@@ -89,18 +90,23 @@ const Task = () => {
         />
       </Modal>
 
-      <ol>
-        {data &&
-          data.map((task) => {
-            return (
-              <li key={task.id}>
-                Nombre: {task.name}
-                <br /> Descripcion: {task.description}
-                <br /> Hecho: {IsDone(task.done)}
-              </li>
-            );
-          })}
-      </ol>
+      <div className="task-list">
+        {data.map((task) => (
+          <div className="card" key={task.id}>
+            <div className="card-header">
+              <h1 className="title-card">
+                N°{task.id} {task.name}
+              </h1>
+            </div>
+            <div className="card-information">
+              <p className="information">{task.description}</p>
+            </div>
+            <div className="card-done">
+              <span className="done">{IsDone(task.done)}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

@@ -1,0 +1,99 @@
+/* Contenedor del encabezado */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* Título a un costado */
+.title-task {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin: 0;
+}
+
+/* Contenedor de los botones */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Estilo minimalista para los botones */
+.button-task {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-task:hover {
+  background-color: var(--accent-color);
+}
+
+/* Contenedor de la lista de tareas */
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta el número de columnas automáticamente */
+  gap: 15px;
+  padding: 20px;
+  justify-content: center;
+}
+
+/* Estilos de la tarjeta */
+.card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Cabecera de la tarjeta */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title-card {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-color);
+  word-wrap: break-word;
+}
+
+/* Contenedor de la descripción */
+.card-information {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  word-wrap: break-word;
+}
+
+/* Estado de la tarea */
+.card-done {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.done {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  font-size: 0.8rem;
+}

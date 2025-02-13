@@ -3,6 +3,8 @@ import { handleInputChange } from "../helpers/HandleInputChange";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../context/ThemeContext";
+import editDark from "../assets/edit-dark.svg";
+import ediLight from "../assets/edit-light.svg";
 
 const EditForm = ({ title, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);
@@ -66,7 +68,10 @@ const EditForm = ({ title, setData, closeModal }) => {
   return (
     <>
       <div className="header-form">
-        <img src="" alt="símbolo de editar" />
+        <img
+          src={theme === "dark" ? ediLight : editDark}
+          alt="símbolo de editar"
+        />
         <h1>Editar {title}</h1>
       </div>
       <div className="content-form">
