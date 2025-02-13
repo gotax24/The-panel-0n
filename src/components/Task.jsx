@@ -4,16 +4,27 @@ import Loading from "./Loading";
 import IsDone from "../helpers/IsDone";
 import Modal from "./Modal";
 import AddForm from "./AddForm";
+import EditForm from "./EditForm";
+import DeleteForm from "./DeleteForm";
 
 const Task = () => {
   const API = import.meta.env.VITE_API_URL;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const openAddModal = () => setIsAddOpen(true);
+  const closeAddModal = () => setIsAddOpen(false);
+
+  const openEditModal = () => setIsEditOpen(true);
+  const closeEditModal = () => setIsEditOpen(false);
+
+  const openDeleteModal = () => setIsDeleteOpen(true);
+  const closeDeleteModal = () => setIsDeleteOpen(false);
 
   useEffect(() => {
     setLoading(true);
@@ -33,6 +44,8 @@ const Task = () => {
       });
   }, [API]);
 
+  console.log(data);
+
   if (loading) return <Loading />;
   if (error) return <p>{error}</p>;
 
@@ -41,18 +54,38 @@ const Task = () => {
       <div className="header">
         <h1 className="title-task">Administrador de tareas</h1>
       </div>
-      <button className="button-task" onClick={openModal}>
+      <button className="button-task" onClick={openAddModal}>
         Crear tarea
       </button>
-      <button className="button-task">Editar tarea</button>
-      <button className="button-task">Eliminar tarea</button>
+      <button className="button-task" onClick={openEditModal}>
+        Editar tarea
+      </button>
+      <button className="button-task" onClick={openDeleteModal}>
+        Eliminar tarea
+      </button>
 
-      <Modal isOpen={isOpen} closeModal={closeModal}>
+      <Modal isOpen={isAddOpen} closeModal={closeAddModal}>
         <AddForm
           title="Tareas"
           setData={setData}
           data={data}
-          closeModal={closeModal}
+          closeModal={closeAddModal}
+        />
+      </Modal>
+
+      <Modal isOpen={isEditOpen} closeModal={closeEditModal}>
+        <EditForm
+          title={"Tareas"}
+          setData={setData}
+          closeModal={closeEditModal}
+        />
+      </Modal>
+
+      <Modal isOpen={isDeleteOpen} closeModal={closeDeleteModal}>
+        <DeleteForm
+          title={"Tareas"}
+          setData={setData}
+          closeModal={closeDeleteModal}
         />
       </Modal>
 

@@ -16,27 +16,19 @@
   gap: 1rem; /* Espacio entre el logo y el título */
 }
 
-.logo-login {
+.logo {
   width: 80px;
   height: auto;
 }
 
-.title-login {
+.title {
   font-size: 2rem;
   font-weight: bold;
   color: var(--text-color);
 }
 
-/* ===== Mensaje de Bienvenida ===== */
-.sub-title-login {
-  font-size: 1.2rem;
-  opacity: 0.8;
-  margin-top: 0.5rem;
-  color: var(--text-color);
-}
-
 /* ===== Contenedor del Login Box ===== */
-.container-login-box {
+.container-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,6 +45,11 @@
     height: auto;
     padding-top: 2rem;
   }
+}
+
+/* Provisional hasta conseguir solucion*/
+.sing-up {
+  margin-top: 100px !important;
 }
 
 /* From Uiverse.io by glisovic01 */
@@ -240,7 +237,7 @@
   border-radius: 5px;
 }
 
-.error-login {
+.error {
   color: red;
   font-size: 16px;
 }

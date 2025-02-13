@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import additionDark from "../assets/addition-dark.svg";
-import additionLight from "../assets/addition-light.svg";
-import Loading from "./Loading";
+
 import { handleInputChange } from "../helpers/HandleInputChange";
 import "../css/AddForm.css";
 import PropTypes from "prop-types";
@@ -47,19 +45,14 @@ const AddForm = ({ title, setData, data, closeModal }) => {
       });
   };
 
-  if (loading) return <Loading />;
-
   return (
     <>
-      <div className="header-add-form">
-        <img
-          src={theme === "dark" ? additionDark : additionLight}
-          alt="imagen de suma"
-        />
+      <div className="header-form">
+        <img src="" alt="imagen de suma" />
         <h1>Agrega a {title}</h1>
       </div>
-      <div className="content-fomr">
-        <form className="form-add">
+      <div className="content-form">
+        <form className="form">
           <label className="label-form">
             Nombre:
             <input
@@ -67,25 +60,25 @@ const AddForm = ({ title, setData, data, closeModal }) => {
               type="text"
               required
               onChange={(e) => {
-                handleInputChange("name", e.target.value);
+                handleInputChange("name", e.target.value, setTask);
               }}
             />
           </label>
           <label className="label-form">
             Descripcion:
-            <input
-              className="description-add"
+            <textarea
+              className="input-form description"
               required
               onChange={(e) => {
                 handleInputChange("description", e.target.value, setTask);
               }}
             />
           </label>
-          <div className="state-form">
+          <div className="content-state">
             <p className="p-form">Estado de la tarea:</p>
             <label className="label-radio-form">
               <input
-                className="radio-form"
+                className="input-radio-form"
                 type="radio"
                 name="task-status"
                 required
@@ -97,7 +90,7 @@ const AddForm = ({ title, setData, data, closeModal }) => {
             </label>
             <label className="label-radio-form">
               <input
-                className="radio-form"
+                className="input-radio-form"
                 type="radio"
                 name="task-status"
                 onClick={() => {

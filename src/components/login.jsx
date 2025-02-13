@@ -52,26 +52,15 @@ const Login = () => {
       });
   };
 
-  /*
-  const handleInputChange = (field, value) => {
-    setError(null);
-
-    setUser((prevUser) => ({
-      ...prevUser,
-      [field]: value,
-    }));
-  };
-  */
-
   return (
     <>
       <div className="container-welcome">
         <img
-          className="logo-login"
+          className="logo"
           src={theme === "dark" ? "/logo-light.svg" : "/logo-dark.svg"}
           alt="Logo de la pagina"
         />
-        <h1 className="title-login">The panel-0n</h1>
+        <h1 className="title">The panel-0n</h1>
       </div>
       <div className="login-box">
         <p>Iniciar sesion</p>
@@ -109,7 +98,7 @@ const Login = () => {
             Registrate!
           </Link>
         </p>
-        {error && <span className="error-login">{error}</span>}
+        {error && <span className="error">{error}</span>}
       </div>
     </>
   );

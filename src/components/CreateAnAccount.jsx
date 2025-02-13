@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "../css/CreateAnAccount.css";
 import { handleInputChange } from "../helpers/HandleInputChange";
 
 const CreateAnAccount = () => {
@@ -44,13 +43,13 @@ const CreateAnAccount = () => {
     <>
       <div className="container-welcome">
         <img
-          className="logo-singUp"
+          className="logo"
           src={theme === "dark" ? "/logo-light.svg" : "/logo-dark.svg"}
           alt="Logo de la pagina"
         />
-        <h1 className="title-singUp">The panel-0n</h1>
+        <h1 className="title">The panel-0n</h1>
       </div>
-      <div className="singUp-box">
+      <div className="sing-up login-box">
         <p>Registrarse</p>
         <form>
           <div className="user-box">
@@ -58,7 +57,7 @@ const CreateAnAccount = () => {
               type="text"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("name", e.target.value, setUser, setError)}
+              onChange={(e) => handleInputChange("name", e.target.value, setUser)}
             />
             <label>Nombre</label>
             <div className="user-box">
@@ -66,7 +65,7 @@ const CreateAnAccount = () => {
                 type="text"
                 autoComplete="on"
                 required
-                onChange={(e) => handleInputChange("lastName", e.target.value, setUser, setError)}
+                onChange={(e) => handleInputChange("lastName", e.target.value, setUser)}
               />
               <label>Apellido</label>
             </div>
@@ -86,7 +85,7 @@ const CreateAnAccount = () => {
               type="password"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("password", e.target.value, setUser, setError)}
+              onChange={(e) => handleInputChange("password", e.target.value, setUser)}
             />
             <label>Contraseña</label>
           </div>
@@ -104,7 +103,7 @@ const CreateAnAccount = () => {
             Inicia Sesión!
           </Link>
         </p>
-        {error && <span className="error-singUp">{error}</span>}
+        {error && <span className="error">{error}</span>}
       </div>
     </>
   );

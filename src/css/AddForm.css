@@ -1,18 +1,19 @@
 /* Estilos generales */
-.header-add-form {
+.header-form {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 20px;
   border-bottom: 2px solid var(--secondary-color);
+  margin-bottom: 20px;
 }
 
-.header-add-form img {
+.header-form img {
   width: 30px;
   height: 30px;
 }
 
-.header-add-form h1 {
+.header-form h1 {
   font-size: 20px;
   font-weight: 600;
   color: var(--text-color);
@@ -22,15 +23,13 @@
 .content-fomr {
   padding: 20px;
   background: var(--card-bg);
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
   margin: auto;
 }
 
 /* Formulario */
-.form-add {
+.form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -46,9 +45,8 @@
   gap: 5px;
 }
 
-/* Inputs y Textarea */
-.input-form,
-.description-add {
+/* Inputs */
+.input-form {
   width: 100%;
   padding: 10px;
   font-size: 14px;
@@ -59,14 +57,22 @@
   transition: all 0.3s ease;
 }
 
+.description {
+  min-height: 70px;
+  max-height: 150px;
+  resize: vertical; 
+  overflow-y: auto; 
+  line-height: 1.5; 
+}
+
 .input-form:focus,
-.description-add:focus {
+.description:focus {
   border-color: var(--primary-color);
   outline: none;
 }
 
 /* Radios */
-.state-form {
+.content-state {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -86,7 +92,7 @@
   color: var(--text-color);
 }
 
-.radio-form {
+.input-radio-form{
   accent-color: var(--accent-color);
 }
 
@@ -105,6 +111,10 @@
 
 .button-form:hover {
   background: var(--secondary-color);
+}
+
+.delete-button{
+  margin-top: 20px;
 }
 
 /* Mensaje de error */
