@@ -7,10 +7,10 @@ import Switch from "./SwitchTheme";
 const Menu = () => {
   const navigation = useNavigate();
   const logOut = () => {
-    localStorage.removeItem("tokenUser");
+    localStorage.removeItem("IdUser");
     navigation("/login");
   };
-  
+
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
@@ -40,7 +40,7 @@ const Menu = () => {
               </li>
 
               <li className="list-nav-link">
-                <NavLink to="/user">Usuario</NavLink>
+                <NavLink to="/users">Usuario</NavLink>
               </li>
 
               <li className="list-nav-link">

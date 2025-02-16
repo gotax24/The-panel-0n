@@ -9,8 +9,13 @@ const Home = () => {
       </div>
       <div className="layout-home">
         <Link to="/tasks">
-          <div className="card-task">
+          <div className="card">
             <h3>Tareas</h3>
+          </div>
+        </Link>
+        <Link to="/users">
+          <div className="card">
+            <p>Usuarios</p>
           </div>
         </Link>
       </div>

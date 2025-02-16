@@ -5,7 +5,7 @@ import Credits from "./credits";
 
 function App() {
   const navigation = useNavigate();
-  const userToken = localStorage.getItem("tokenUser");
+  const userToken = localStorage.getItem("IdUser");
 
   useEffect(() => {
     if (!userToken) {

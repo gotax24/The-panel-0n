@@ -38,7 +38,7 @@ const Login = () => {
 
         if (findUser) {
           setLoading(true);
-          localStorage.setItem("tokenUser", findUser.token);
+          localStorage.setItem("IdUser", findUser.id);
           navigation("/");
         } else {
           setLoading(false);

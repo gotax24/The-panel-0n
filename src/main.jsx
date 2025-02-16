@@ -8,6 +8,7 @@ import CreateAnAccount from "./components/CreateAnAccount.jsx";
 import Task from "./components/Task.jsx";
 import ThemeProvider from "./context/ThemeProvider.jsx";
 import "./index.css";
+import Users from "./components/Users.jsx";
 
 createRoot(document.getElementById("root")).render(
   <ThemeProvider>
@@ -15,9 +16,9 @@ createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
-          <Route path="tasks" element={<Task/>} />
+          <Route path="tasks" element={<Task />} />
           <Route path="statistics" element={"Estadisticas"} />
-          <Route path="calendar" element={"calendario"} />
+          <Route path="users" element={<Users />} />
         </Route>
         <Route path="/CreateAnAccount" element={<CreateAnAccount />} />
         <Route path="/login" element={<Login />} />

@@ -30,7 +30,7 @@ const CreateAnAccount = () => {
       .then((response) => {
         const users = response.data;
         navigation("/");
-        localStorage.setItem(`tokenUser`,users.token)
+        localStorage.setItem(`IdUser`,users.id)
       })
       .catch((e) => {
         setLoading(false);
