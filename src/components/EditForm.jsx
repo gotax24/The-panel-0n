@@ -1,68 +1,43 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { handleInputChange } from "../helpers/HandleInputChange";
-import axios from "axios";
 import PropTypes from "prop-types";
 import { ThemeContext } from "../context/ThemeContext";
 import editDark from "../assets/edit-dark.svg";
 import ediLight from "../assets/edit-light.svg";
+import PutData from "../hooks/PutData";
+import GetData from "../hooks/GetData";
 
 const EditForm = ({ title, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);
   const [task, setTask] = useState({
-    id: "",
     name: "",
     description: "",
     done: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const API = import.meta.env.VITE_API_URL;
+  const [id, setId] = useState("");
+  const { loading, error, UpdateData } = PutData("task");
 
-  const bringInformation = (id) => {
-    setLoading(true);
-    axios
-      .get(`${API}task/${id}`)
-      .then((response) => {
-        const info = response.data;
-        console.log(info);
-        setTask(info);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.error(e);
-        setError("Ocurrió un error al traer la información");
-        setLoading(false);
+  const {
+    data,
+    loading: loadingTask,
+    error: errorTask,
+  } = GetData(`task/${id}`);
+
+  useEffect(() => {
+    if (data) {
+      setTask({
+        id: data.id,
+        name: data.name,
+        description: data.description,
+        done: data.done,
       });
-  };
+    }
+  }, [data]);
 
   const confirmEdition = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    if (!task.id || !task.name || !task.description || task.done === "") {
-      setError("Un campo o varios campos están vacíos");
-      setLoading(false);
-      return;
-    }
-
-    axios
-      .put(`${API}task/${task.id}`, task)
-      .then((response) => {
-        const editTask = response.data;
-        setData((prevData) =>
-          prevData.map((data) => (data.id === editTask.id ? editTask : data))
-        );
-
-        setLoading(false);
-        closeModal();
-      })
-      .catch((e) => {
-        console.error(e);
-        setError("Ocurrió un problema");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    UpdateData(task, task.id, setData);
+    closeModal();
   };
 
   return (
@@ -84,8 +59,7 @@ const EditForm = ({ title, setData, closeModal }) => {
               required
               className="input-form"
               onChange={(e) => {
-                bringInformation(e.target.value);
-                handleInputChange("id", e.target.value, setTask);
+                setId(e.target.value);
               }}
             />
           </label>
@@ -95,7 +69,7 @@ const EditForm = ({ title, setData, closeModal }) => {
               type="text"
               className="input-form"
               required
-              value={task.name}
+              value={task?.name ?? ""}
               onChange={(e) =>
                 handleInputChange("name", e.target.value, setTask)
               }
@@ -107,7 +81,7 @@ const EditForm = ({ title, setData, closeModal }) => {
               type="text"
               className="input-form description"
               required
-              value={task.description}
+              value={task?.description ?? ""}
               onChange={(e) =>
                 handleInputChange("description", e.target.value, setTask)
               }
@@ -118,7 +92,7 @@ const EditForm = ({ title, setData, closeModal }) => {
             <label className="label-radio-form">
               <input
                 type="radio"
-                checked={task.done === true}
+                checked={task && task.done === true}
                 onChange={() => handleInputChange("done", true, setTask)}
                 className="input-radio-form"
                 required
@@ -128,7 +102,7 @@ const EditForm = ({ title, setData, closeModal }) => {
             <label className="label-radio-form">
               <input
                 type="radio"
-                checked={task.done === false}
+                checked={task && task.done === false}
                 onChange={() => handleInputChange("done", false, setTask)}
                 className="input-radio-form"
               />
@@ -136,10 +110,11 @@ const EditForm = ({ title, setData, closeModal }) => {
             </label>
           </div>
           <button className="button-form" onClick={confirmEdition}>
-            {loading ? "Cambiando" : "Confirmar Cambio"}
+            {loadingTask || loading ? "Cambiando" : "Confirmar Cambio"}
           </button>
         </form>
-        {error && <p className="error-form">{error}</p>}
+        {errorTask ||
+          (error && <p className="error-form">{errorTask || error} </p>)}
       </div>
     </>
   );

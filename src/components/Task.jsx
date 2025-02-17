@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState} from "react";
 import Loading from "./Loading";
 import IsDone from "../helpers/IsDone";
 import Modal from "./Modal";
@@ -7,12 +6,10 @@ import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import DeleteForm from "./DeleteForm";
 import "../css/Task.css";
+import GetData from "../hooks/GetData";
 
 const Task = () => {
-  const API = import.meta.env.VITE_API_URL;
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { data, setData, loading, error } = GetData("task");
 
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -27,26 +24,7 @@ const Task = () => {
   const openDeleteModal = () => setIsDeleteOpen(true);
   const closeDeleteModal = () => setIsDeleteOpen(false);
 
-  useEffect(() => {
-    setLoading(true);
-
-    axios
-      .get(API + "task")
-      .then((response) => {
-        const tasks = response.data;
-        setData(tasks);
-        setLoading(false);
-        setError(null);
-      })
-      .catch((e) => {
-        console.error(e);
-        setError("Ocurrio un error");
-        setLoading(false);
-      });
-  }, [API]);
-
   if (loading) return <Loading />;
-  if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -64,7 +42,7 @@ const Task = () => {
           Eliminar tarea
         </button>
       </div>
-
+      {error && <p className="error">{error}</p>}
       <Modal isOpen={isAddOpen} closeModal={closeAddModal}>
         <AddForm
           title="Tareas"

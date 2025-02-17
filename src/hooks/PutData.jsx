@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 
-const PutData = (url, setData) => {
+const PutData = (url) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const API = import.meta.env.VITE_API_URL;
 
-  const UpdateData = (dataEdit, id) => {
+  const UpdateData = (dataEdit, id, setData) => {
     setLoading(true);
     setError(null);
     axios

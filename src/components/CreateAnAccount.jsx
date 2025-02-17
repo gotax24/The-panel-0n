@@ -1,42 +1,25 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { handleInputChange } from "../helpers/HandleInputChange";
+import PostData from "../hooks/PostData";
+import GetData from "../hooks/GetData";
 
 const CreateAnAccount = () => {
-  const navigation = useNavigate();
-  const API = import.meta.env.VITE_API_URL
   const { theme } = useContext(ThemeContext);
-
   const [user, setUser] = useState({
     name: "",
     lastName: "",
     email: "",
     password: "",
   });
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const { loading, error, post } = PostData("users");
+  const { setData } = GetData();
+  const [emailError, setEmailError] = useState();
 
   const SingUp = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    if(user.name === "" || user.lastName === "" || user.email === "" || user.password === "") return (setError("Un campo o varios campos estan vacios") , setLoading(false))
-
-    axios
-      .post(API+"users", user)
-      .then((response) => {
-        const users = response.data;
-        navigation("/");
-        localStorage.setItem(`IdUser`,users.id)
-      })
-      .catch((e) => {
-        setLoading(false);
-        setError(e.response.data.error);
-        console.error(e);
-      });
+    post(user, setData, true);
   };
 
   return (
@@ -57,7 +40,9 @@ const CreateAnAccount = () => {
               type="text"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("name", e.target.value, setUser)}
+              onChange={(e) =>
+                handleInputChange("name", e.target.value, setUser)
+              }
             />
             <label>Nombre</label>
             <div className="user-box">
@@ -65,7 +50,9 @@ const CreateAnAccount = () => {
                 type="text"
                 autoComplete="on"
                 required
-                onChange={(e) => handleInputChange("lastName", e.target.value, setUser)}
+                onChange={(e) =>
+                  handleInputChange("lastName", e.target.value, setUser)
+                }
               />
               <label>Apellido</label>
             </div>
@@ -74,7 +61,14 @@ const CreateAnAccount = () => {
                 type="email"
                 autoComplete="on"
                 required
-                onChange={(e) => handleInputChange("email", e.target.value, setUser, setError)}
+                onChange={(e) =>
+                  handleInputChange(
+                    "email",
+                    e.target.value,
+                    setUser,
+                    setEmailError
+                  )
+                }
               />
               <label>Correo</label>
             </div>
@@ -85,7 +79,9 @@ const CreateAnAccount = () => {
               type="password"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("password", e.target.value, setUser)}
+              onChange={(e) =>
+                handleInputChange("password", e.target.value, setUser)
+              }
             />
             <label>Contraseña</label>
           </div>
@@ -103,7 +99,14 @@ const CreateAnAccount = () => {
             Inicia Sesión!
           </Link>
         </p>
-        {error && <span className="error">{error}</span>}
+        {emailError ||
+          (error && <span className="error">{emailError || error}</span>)}
+        {(user.name === "" ||
+          user.lastName === "" ||
+          user.email === "" ||
+          user.password === "") && (
+          <p className="error">Un campo o varios campos estan vacios</p>
+        )}
       </div>
     </>
   );

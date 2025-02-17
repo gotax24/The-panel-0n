@@ -1,55 +1,30 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "../css/Login.css";
 import { handleInputChange } from "../helpers/HandleInputChange";
+import GetData from "../hooks/GetData";
 
 const Login = () => {
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigate();
-
-  const API = import.meta.env.VITE_API_URL
-
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [emailError, setEmailError] = useState(null);
+  const { data, loading, error } = GetData("users");
 
   const signIn = (e) => {
     e.preventDefault();
-    if (user.email === "" || user.password === "") {
-      return setError("Complete los campos para avanzar"), setLoading(false);
+    const findUser = data.find(
+      (u) => u.email === user.email && u.password === user.password
+    );
+
+    if (findUser) {
+      localStorage.setItem("IdUser", findUser.id);
+      navigation("/");
     }
-
-    setLoading(true);
-    setError(null);
-
-    axios
-      .get(API+"users")
-      .then((response) => {
-        const users = response.data;
-        const findUser = users.find(
-          (u) => u.email === user.email && u.password === user.password
-        );
-
-        if (findUser) {
-          setLoading(true);
-          localStorage.setItem("IdUser", findUser.id);
-          navigation("/");
-        } else {
-          setLoading(false);
-          setError("No se encontro ningun usuario");
-        }
-      })
-      .catch((e) => {
-        setLoading(false);
-        console.error(e);
-        setError(e.response.data.error);
-      });
   };
 
   return (
@@ -70,7 +45,14 @@ const Login = () => {
               type="email"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("email", e.target.value, setUser, setError)}
+              onChange={(e) =>
+                handleInputChange(
+                  "email",
+                  e.target.value,
+                  setUser,
+                  setEmailError
+                )
+              }
             />
             <label>Correo</label>
           </div>
@@ -80,7 +62,9 @@ const Login = () => {
               type="password"
               autoComplete="on"
               required
-              onChange={(e) => handleInputChange("password", e.target.value, setUser, setError)}
+              onChange={(e) =>
+                handleInputChange("password", e.target.value, setUser)
+              }
             />
             <label>Contraseña</label>
           </div>
@@ -98,7 +82,11 @@ const Login = () => {
             Registrate!
           </Link>
         </p>
-        {error && <span className="error">{error}</span>}
+        {emailError ||
+          (error && <span className="error">{emailError || error}</span>)}
+        {(user.email === "" || user.password === "") && (
+          <p>Complete los campos para avanzar</p>
+        )}
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import axios from "axios";
+import DeleteData from "../hooks/DeleteData"
 import PropTypes from "prop-types";
 import deleteDark from "../assets/delete-dark.svg";
 import deleteLight from "../assets/delete-light.svg";
@@ -8,26 +8,12 @@ import deleteLight from "../assets/delete-light.svg";
 const DeleteForm = ({ title, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);
   const [taskId, setTaskId] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const API = import.meta.env.VITE_API_URL;
+  const {loading, error, Delete} = DeleteData("task")
 
-  const Delete = (e) => {
+  const DeleteTask = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    axios
-      .delete(`${API}task/${taskId}`)
-      .then(() => {
-        setData((prevData) => prevData.filter((task) => task.id !== taskId));
-        setLoading(false);
-        closeModal();
-      })
-      .catch((e) => {
-        console.error(e);
-        setError("Ocurrio un error al eliminar la tarea");
-        setLoading(false);
-      });
+    Delete(taskId, setData,false)
+    closeModal();
   };
 
   return (
@@ -51,7 +37,7 @@ const DeleteForm = ({ title, setData, closeModal }) => {
             }}
           />
         </label>
-        <button className="button-form delete-button" onClick={Delete}>
+        <button className="button-form delete-button" onClick={DeleteTask}>
           {loading ? "Eliminando..." : "Confirmar eliminacion"}
         </button>
         {error && <p className="error-form">{error}</p>}

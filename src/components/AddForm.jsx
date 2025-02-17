@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import addDark from "../assets/add-dark.svg";
@@ -6,44 +5,21 @@ import addLight from "../assets/add-light.svg";
 import { handleInputChange } from "../helpers/HandleInputChange";
 import "../css/AddForm.css";
 import PropTypes from "prop-types";
+import PostData from "../hooks/PostData";
 
-const AddForm = ({ title, setData, data, closeModal }) => {
+const AddForm = ({ title, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);
-  const API = import.meta.env.VITE_API_URL;
-
   const [task, setTask] = useState({
     name: "",
     description: "",
     done: "",
   });
-
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, error, post } = PostData("task");
 
   const update = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    if (task.name === "" || task.description === "" || task.done === "") {
-      setError("Un campo o varios campos estan vacios");
-      setLoading(false);
-      return;
-    }
-
-    axios
-      .post(API + "task", task)
-      .then((response) => {
-        const newTask = response.data;
-
-        setData([...data, newTask]);
-        setLoading(false);
-        closeModal();
-      })
-      .catch((e) => {
-        console.error(e);
-        setError("Ocurrio un problema en agregar la tarea");
-        setLoading(false);
-      });
+    post(task, setData, false);
+    closeModal();
   };
 
   return (
@@ -106,6 +82,9 @@ const AddForm = ({ title, setData, data, closeModal }) => {
           </button>
         </form>
         {error && <p className="error-form">{error}</p>}
+        {(task.name === "" || task.description === "" || task.done === "") && (
+          <p className="error-form">Hay unos o un campo vacio</p>
+        )}
       </div>
     </>
   );

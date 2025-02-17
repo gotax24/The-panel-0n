@@ -28,15 +28,13 @@ const Users = () => {
         <h1 className="title">Administrador de usuario</h1>
       </div>
 
-      {user.length > 0 ? (
+      {user.length > 0 && (
         <div className="container-info">
           <h2 className="welcome">
             Bienvenido/a {user[0].name} {user[0].lastName}
           </h2>
           <h3>Que quieres hacer?</h3>
         </div>
-      ) : (
-        <p>{error + " al buscar al usuario"}</p>
       )}
 
       <div className="button-container">
