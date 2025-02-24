@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Menu from "./Menu";
-import Credits from "./credits";
+import Credits from "./Credits";
 
 function App() {
   const navigation = useNavigate();
