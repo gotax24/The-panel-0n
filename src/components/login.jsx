@@ -3,7 +3,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import { handleInputChange } from "../helpers/HandleInputChange";
-import GetData from "../hooks/GetData";
+import GetData from "../hooks/GetData.js";
 
 const Login = () => {
   const { theme } = useContext(ThemeContext);

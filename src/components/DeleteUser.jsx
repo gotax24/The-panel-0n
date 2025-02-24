@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import DeleteData from "../hooks/DeleteData";
+import DeleteData from "../hooks/DeleteData.js";
 import { ThemeContext } from "../context/ThemeContext";
 import PropTypes from "prop-types";
 import logoDark from "../assets/user-delete-dark.svg";
@@ -7,11 +7,11 @@ import logoLight from "../assets/user-delete-light.svg";
 
 const DeleteUser = ({ id, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);
-  const { loading, error, Delete } = DeleteData("users", setData);
+  const { loading, error, Delete } = DeleteData("users");
 
   const handleDelete = (e) => {
     e.preventDefault();
-    Delete(id);
+    Delete(id, setData, true);
     closeModal();
   };
 

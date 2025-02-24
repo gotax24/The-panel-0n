@@ -1,0 +1,86 @@
+.header {
+  padding: 20px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.container-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--text-color);
+  margin-bottom: 15px;
+}
+
+.welcome-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.container-info {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.p-info {
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  padding: 10px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.p-info:last-child {
+  border-bottom: none;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.eye {
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.button-task {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.button-task:hover {
+  background: var(--accent-color);
+}

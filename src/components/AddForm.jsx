@@ -5,7 +5,7 @@ import addLight from "../assets/add-light.svg";
 import { handleInputChange } from "../helpers/HandleInputChange";
 import "../css/AddForm.css";
 import PropTypes from "prop-types";
-import PostData from "../hooks/PostData";
+import PostData from "../hooks/PostData.js";
 
 const AddForm = ({ title, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);

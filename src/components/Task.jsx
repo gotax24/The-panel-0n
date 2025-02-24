@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import Loading from "./Loading";
 import IsDone from "../helpers/IsDone";
 import Modal from "./Modal";
@@ -6,7 +6,8 @@ import AddForm from "./AddForm";
 import EditForm from "./EditForm";
 import DeleteForm from "./DeleteForm";
 import "../css/Task.css";
-import GetData from "../hooks/GetData";
+import GetData from "../hooks/GetData.js";
+import { IsDoneCounter, IsPendingCounter } from "../helpers/Counter.js";
 
 const Task = () => {
   const { data, setData, loading, error } = GetData("task");
@@ -26,6 +27,9 @@ const Task = () => {
 
   if (loading) return <Loading />;
 
+  const done = IsDoneCounter(data).length;
+  const pending = IsPendingCounter(data).length;
+
   return (
     <>
       <div className="header">
@@ -42,7 +46,12 @@ const Task = () => {
           Eliminar tarea
         </button>
       </div>
+
       {error && <p className="error">{error}</p>}
+
+      <p className="task-counter">
+        Tareas completadas: {done}✔️ | Tareas pendientes: {pending}❌ 
+      </p>
       <Modal isOpen={isAddOpen} closeModal={closeAddModal}>
         <AddForm
           title="Tareas"

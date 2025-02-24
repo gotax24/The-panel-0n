@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { handleInputChange } from "../helpers/HandleInputChange";
-import PostData from "../hooks/PostData";
-import GetData from "../hooks/GetData";
+import PostData from "../hooks/PostData.js";
+import GetData from "../hooks/GetData.js";
 
 const CreateAnAccount = () => {
   const { theme } = useContext(ThemeContext);

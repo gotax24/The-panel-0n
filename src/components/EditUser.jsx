@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import PutData from "../hooks/PutData";
+import PutData from "../hooks/PutData.js";
 import { handleInputChange } from "../helpers/HandleInputChange";
 import PropTypes from "prop-types";
 import logoDark from "../assets/user-edit-dark.svg";
@@ -8,7 +8,7 @@ import logoLight from "../assets/user-edit-light.svg";
 
 const EditUser = ({ user, id, closeModal, setData }) => {
   const { theme } = useContext(ThemeContext);
-  const { loading, error, UpdateData } = PutData("users", setData);
+  const { loading, error, UpdateData } = PutData("users");
 
   const [dataEdit, setDataEdit] = useState({
     name: user[0].name,
@@ -20,7 +20,7 @@ const EditUser = ({ user, id, closeModal, setData }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    UpdateData(dataEdit, id);
+    UpdateData(dataEdit, id, setData);
     closeModal();
   };
 

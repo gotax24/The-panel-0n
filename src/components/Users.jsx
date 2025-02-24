@@ -1,26 +1,53 @@
-import { useState } from "react";
-import GetData from "../hooks/GetData";
+import { useContext, useState } from "react";
+import GetData from "../hooks/GetData.js";
 import Loading from "./Loading";
 import Modal from "./Modal";
 import EditUser from "./EditUser";
 import DeleteUser from "./DeleteUser";
+import { Mail, KeyRound, Eye, EyeOff, UserRound } from "lucide-react";
+import { ThemeContext } from "../context/ThemeContext";
+import { writte } from "../helpers/Writer.js";
+import "../css/Users.css";
 
 const Users = () => {
   const { data, loading, error, setData } = GetData("users");
+  const { theme } = useContext(ThemeContext);
 
   const [isEditInfoOpen, setIsEditInfoOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [see, SetSee] = useState(false);
 
   const openEditInfo = () => setIsEditInfoOpen(true);
   const openDelete = () => setIsDeleteOpen(true);
 
   const closeEditInfoModal = () => setIsEditInfoOpen(false);
   const closeDeleteModal = () => setIsDeleteOpen(false);
+  const changeSee = () => SetSee((prev) => !prev);
 
   if (loading) return <Loading />;
 
   const idUser = localStorage.getItem("IdUser");
   const user = data.filter((search) => search.id === idUser);
+
+  const canYouSee = () => {
+    if (see) {
+      return (
+        <Eye
+          className="eye"
+          onClick={changeSee}
+          color={theme === "light" ? "#2e073f" : "#f5efff"}
+        />
+      );
+    } else {
+      return (
+        <EyeOff
+          className="eye"
+          onClick={changeSee}
+          color={theme === "light" ? "#2e073f" : "#f5efff"}
+        />
+      );
+    }
+  };
 
   return (
     <>
@@ -29,22 +56,66 @@ const Users = () => {
       </div>
 
       {user.length > 0 && (
-        <div className="container-info">
-          <h2 className="welcome">
-            Bienvenido/a {user[0].name} {user[0].lastName}
-          </h2>
-          <h3>Que quieres hacer?</h3>
-        </div>
-      )}
+        <>
+          <div className="container-main">
+            <div className="container-header">
+              <img
+                src={user[0].picture}
+                alt="Foto de perfil del usuario"
+                className="profile-picture"
+              />
+              <h2 className="welcome-text">
+                Bienvenido/a {user[0].name} {user[0].lastName}
+              </h2>
+            </div>
 
-      <div className="button-container">
-        <button className="button-task" onClick={openEditInfo}>
-          Editar usuario
-        </button>
-        <button className="button-task" onClick={openDelete}>
-          Eliminar la cuenta
-        </button>
-      </div>
+            <div className="button-container">
+              <button className="button-task" onClick={openEditInfo}>
+                Editar usuario
+              </button>
+              <button className="button-task" onClick={openDelete}>
+                Eliminar la cuenta
+              </button>
+            </div>
+
+            <div className="container-info">
+              <p className="p-info">
+                <span className="icon">
+                  <UserRound
+                    color={theme === "light" ? "#2e073f" : "#f5efff"}
+                  />
+                </span>
+                <span>Nombre: {user[0].name}</span>
+              </p>
+              <p className="p-info">
+                <span className="icon">
+                  <UserRound
+                    color={theme === "light" ? "#2e073f" : "#f5efff"}
+                  />
+                </span>
+                <span>Apellido: {user[0].lastName}</span>
+              </p>
+              <p className="p-info">
+                <span className="icon">
+                  <Mail color={theme === "light" ? "#2e073f" : "#f5efff"} />
+                </span>
+                <span>Email: {user[0].email}</span>
+              </p>
+
+              <p className="p-info">
+                <span className="icon">
+                  <KeyRound color={theme === "light" ? "#2e073f" : "#f5efff"} />
+                </span>
+                <span>
+                  Contraseña:{" "}
+                  {see ? user[0].password : writte(user[0].password.length)}
+                </span>
+                <span >{canYouSee()}</span>
+              </p>
+            </div>
+          </div>
+        </>
+      )}
 
       <Modal isOpen={isEditInfoOpen} closeModal={closeEditInfoModal}>
         <EditUser

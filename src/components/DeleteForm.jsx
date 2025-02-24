@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import DeleteData from "../hooks/DeleteData"
+import DeleteData from "../hooks/DeleteData.js"
 import PropTypes from "prop-types";
 import deleteDark from "../assets/delete-dark.svg";
 import deleteLight from "../assets/delete-light.svg";

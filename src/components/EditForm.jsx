@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "../context/ThemeContext";
 import editDark from "../assets/edit-dark.svg";
 import ediLight from "../assets/edit-light.svg";
-import PutData from "../hooks/PutData";
-import GetData from "../hooks/GetData";
+import PutData from "../hooks/PutData.js";
+import GetData from "../hooks/GetData.js";
 
 const EditForm = ({ title, setData, closeModal }) => {
   const { theme } = useContext(ThemeContext);

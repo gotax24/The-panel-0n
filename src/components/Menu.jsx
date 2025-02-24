@@ -36,10 +36,6 @@ const Menu = () => {
               </li>
 
               <li className="list-nav-link">
-                <NavLink to="/statistics">Estadisticas</NavLink>
-              </li>
-
-              <li className="list-nav-link">
                 <NavLink to="/users">Usuario</NavLink>
               </li>
 
