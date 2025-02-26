@@ -6,6 +6,7 @@ import Switch from "./SwitchTheme";
 
 const Menu = () => {
   const navigation = useNavigate();
+
   const logOut = () => {
     localStorage.removeItem("IdUser");
     navigation("/login");
@@ -40,7 +41,7 @@ const Menu = () => {
               </li>
 
               <li className="list-nav-link">
-                <a href="#!" onClick={logOut}>
+                <a href="" onClick={logOut}>
                   Cerrar sesion
                 </a>
               </li>
