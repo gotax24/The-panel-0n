@@ -4,10 +4,12 @@ import Loading from "./Loading";
 import Modal from "./Modal";
 import EditUser from "./EditUser";
 import DeleteUser from "./DeleteUser";
-import { Mail, KeyRound, Eye, EyeOff, UserRound } from "lucide-react";
+import { Mail, KeyRound, UserRound } from "lucide-react";
 import { ThemeContext } from "../context/ThemeContext";
 import { writte } from "../helpers/Writer.js";
 import "../css/Users.css";
+import useToggleSee from "../hooks/useToggleSee.js";
+import EyeToggle from "./EyeToggle.jsx";
 
 const Users = () => {
   const { data, loading, error, setData } = GetData("users");
@@ -15,39 +17,18 @@ const Users = () => {
 
   const [isEditInfoOpen, setIsEditInfoOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [see, SetSee] = useState(false);
+  const { see, changeSee } = useToggleSee();
 
   const openEditInfo = () => setIsEditInfoOpen(true);
   const openDelete = () => setIsDeleteOpen(true);
 
   const closeEditInfoModal = () => setIsEditInfoOpen(false);
   const closeDeleteModal = () => setIsDeleteOpen(false);
-  const changeSee = () => SetSee((prev) => !prev);
 
   if (loading) return <Loading />;
 
   const idUser = localStorage.getItem("IdUser");
   const user = data.filter((search) => search.id === idUser);
-
-  const canYouSee = () => {
-    if (see) {
-      return (
-        <Eye
-          className="eye"
-          onClick={changeSee}
-          color={theme === "light" ? "#2e073f" : "#f5efff"}
-        />
-      );
-    } else {
-      return (
-        <EyeOff
-          className="eye"
-          onClick={changeSee}
-          color={theme === "light" ? "#2e073f" : "#f5efff"}
-        />
-      );
-    }
-  };
 
   return (
     <>
@@ -110,7 +91,9 @@ const Users = () => {
                   Contraseña:{" "}
                   {see ? user[0].password : writte(user[0].password.length)}
                 </span>
-                <span >{canYouSee()}</span>
+                <span>
+                  <EyeToggle theme={theme} see={see} changeSee={changeSee} />
+                </span>
               </p>
             </div>
           </div>

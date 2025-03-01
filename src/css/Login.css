@@ -49,8 +49,34 @@
 
 /* Provisional hasta conseguir solucion*/
 .sing-up {
-  margin-top: 100px !important;
+  margin-top: 90px !important;
 }
+
+/* Contenedor del input y botón */
+.password-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Ajustar el input */
+.input-singUp {
+  width: 100%;
+  padding-right: 40px; /* Espacio para el botón */
+}
+
+/* Botón de mostrar contraseña */
+.toggle-password {
+  position: absolute;
+  top: 10px;
+  right: 1px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
 
 /* From Uiverse.io by glisovic01 */
 .login-box {
@@ -123,8 +149,8 @@
   text-transform: uppercase;
   overflow: hidden;
   transition: 0.5s;
-  margin-top: 40px;
   letter-spacing: 3px;
+  cursor: pointer;
 }
 
 .login-box a:hover {
@@ -237,7 +263,7 @@
   border-radius: 5px;
 }
 
-.error {
+.error-form {
   color: red;
   font-size: 16px;
 }

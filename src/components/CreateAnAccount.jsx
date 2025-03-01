@@ -4,22 +4,85 @@ import { Link } from "react-router-dom";
 import { handleInputChange } from "../helpers/HandleInputChange";
 import PostData from "../hooks/PostData.js";
 import GetData from "../hooks/GetData.js";
+import useToggleSee from "../hooks/useToggleSee.js";
+import EyeToggle from "./EyeToggle.jsx";
 
 const CreateAnAccount = () => {
   const { theme } = useContext(ThemeContext);
+
   const [user, setUser] = useState({
     name: "",
     lastName: "",
     email: "",
     password: "",
   });
+
   const { loading, error, post } = PostData("users");
-  const { setData } = GetData();
-  const [emailError, setEmailError] = useState();
+  const { data, setData } = GetData("users");
+  const [singUpError, setSingUpError] = useState(null);
+  const { see, changeSee } = useToggleSee(theme);
 
   const SingUp = (e) => {
     e.preventDefault();
-    post(user, setData, true);
+
+    if (
+      user.name === "" ||
+      user.lastName === "" ||
+      user.email === "" ||
+      user.password === ""
+    ) {
+      return;
+    }
+
+    if (verifyEmail(data, user.email) || verifyPassword(user.password))
+      post(user, setData, true);
+  };
+
+  const verifyEmail = (users, email, setSingUpError) => {
+    const findEmail = users.find((newUser) => newUser.email === email);
+  
+    // Expresión regular para validar solo ciertos dominios
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|protonmail\.com)$/;
+  
+    if (!emailRegex.test(email)) {
+      setSingUpError("El email debe ser de un proveedor válido (Gmail, Outlook, Yahoo, etc.)");
+      return false;
+    }
+  
+    if (findEmail) {
+      setSingUpError("El email ya existe");
+      return false;
+    }
+  
+    setSingUpError(null);
+    return true;
+  };
+  
+
+  const verifyPassword = (password) => {
+    const minimumQuantity = 8;
+
+    if (password.length < minimumQuantity) {
+      setSingUpError("La contraseña debe tener minimo 8 caracteres");
+      return false;
+    } else if (!/[A-Z]/.test(password)) {
+      setSingUpError("La contraseña debe tener al menos una mayuscula");
+      return false;
+    } else if (!/[a-z]/.test(password)) {
+      setSingUpError("La contraseña debe tener al menos una miniscula");
+      return false;
+
+      //Para verificar si tiene al menos un numero
+    } else if (!/\d/.test(password)) {
+      setSingUpError("La contraseña debe tener al menos un numero");
+      return false;
+    } else if (!/[|#$%&*,/;+-._?]/.test(password)) {
+      setSingUpError("La contraseña debe tener al menos un caracter especial");
+      return false;
+    }
+
+    setSingUpError(null);
+    return true;
   };
 
   return (
@@ -61,29 +124,35 @@ const CreateAnAccount = () => {
                 type="email"
                 autoComplete="on"
                 required
-                onChange={(e) =>
+                onChange={(e) => {
                   handleInputChange(
                     "email",
                     e.target.value,
                     setUser,
-                    setEmailError
-                  )
-                }
+                    setSingUpError
+                  );
+
+                  verifyEmail(data, e.target.value);
+                }}
               />
               <label>Correo</label>
             </div>
           </div>
-          <div className="user-box">
+          <div className="user-box password-box">
             <input
               className="input-singUp"
-              type="password"
+              type={see ? "password" : "text"}
               autoComplete="on"
               required
-              onChange={(e) =>
-                handleInputChange("password", e.target.value, setUser)
-              }
+              onChange={(e) => {
+                handleInputChange("password", e.target.value, setUser);
+                verifyPassword(e.target.value);
+              }}
             />
             <label>Contraseña</label>
+            <button type="button" className="toggle-password">
+              <EyeToggle theme={theme} changeSee={changeSee} see={see} />
+            </button>
           </div>
           <a onClick={SingUp}>
             <span></span>
@@ -99,13 +168,13 @@ const CreateAnAccount = () => {
             Inicia Sesión!
           </Link>
         </p>
-        {emailError ||
-          (error && <span className="error">{emailError || error}</span>)}
+        {singUpError ||
+          (error && <span className="error-form">{singUpError || error}</span>)}
         {(user.name === "" ||
           user.lastName === "" ||
           user.email === "" ||
           user.password === "") && (
-          <p className="error">Un campo o varios campos estan vacios</p>
+          <p className="error-form">Un campo o varios campos estan vacios</p>
         )}
       </div>
     </>

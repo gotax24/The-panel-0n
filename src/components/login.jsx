@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import { handleInputChange } from "../helpers/HandleInputChange";
 import GetData from "../hooks/GetData.js";
+import useToggleSee from "../hooks/useToggleSee.js";
+import EyeToggle from "./EyeToggle.jsx";
 
 const Login = () => {
   const { theme } = useContext(ThemeContext);
@@ -14,6 +16,7 @@ const Login = () => {
   });
   const [emailError, setEmailError] = useState(null);
   const { data, loading, error } = GetData("users");
+  const { see, changeSee } = useToggleSee(theme);
 
   const signIn = (e) => {
     e.preventDefault();
@@ -59,7 +62,7 @@ const Login = () => {
           <div className="user-box">
             <input
               className="input-login"
-              type="password"
+              type={see ? "password" : "text"}
               autoComplete="on"
               required
               onChange={(e) =>
@@ -67,6 +70,9 @@ const Login = () => {
               }
             />
             <label>Contraseña</label>
+            <button type="button" className="toggle-password">
+              <EyeToggle theme={theme} changeSee={changeSee} see={see} />
+            </button>
           </div>
           <a onClick={signIn} href="#">
             <span></span>
