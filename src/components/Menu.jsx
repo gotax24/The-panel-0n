@@ -9,7 +9,7 @@ const Menu = () => {
 
   const logOut = () => {
     localStorage.removeItem("IdUser");
-    navigation("/login");
+    navigation("/");
   };
 
   const { theme, toggleTheme } = useContext(ThemeContext);
