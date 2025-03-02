@@ -30,6 +30,9 @@ const Users = () => {
   const idUser = localStorage.getItem("IdUser");
   const user = data.filter((search) => search.id === idUser);
 
+  //Evitar el renderizado del componente si el id no existe
+  if(!idUser) return 
+
   return (
     <>
       <div className="header">

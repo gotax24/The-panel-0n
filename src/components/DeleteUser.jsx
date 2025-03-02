@@ -36,7 +36,7 @@ const DeleteUser = ({ id, setData, closeModal }) => {
 };
 
 DeleteUser.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   setData: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
 };

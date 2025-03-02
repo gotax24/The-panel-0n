@@ -34,30 +34,52 @@ const CreateAnAccount = () => {
       return;
     }
 
-    if (verifyEmail(data, user.email) || verifyPassword(user.password))
+    if (
+      verifyEmail(data, user.email) &&
+      verifyPassword(user.password) &&
+      verifyText("name",user.name) &&
+      verifyText("lastname",user.lastName)
+    )
       post(user, setData, true);
   };
 
-  const verifyEmail = (users, email, setSingUpError) => {
+  const verifyEmail = (users, email) => {
     const findEmail = users.find((newUser) => newUser.email === email);
-  
+
     // Expresión regular para validar solo ciertos dominios
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|protonmail\.com)$/;
-  
+    const emailRegex =
+      /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|protonmail\.com)$/;
+
     if (!emailRegex.test(email)) {
-      setSingUpError("El email debe ser de un proveedor válido (Gmail, Outlook, Yahoo, etc.)");
+      setSingUpError(
+        "El email debe ser de un proveedor válido (Gmail, Outlook, Yahoo, etc.)"
+      );
       return false;
     }
-  
+
     if (findEmail) {
       setSingUpError("El email ya existe");
       return false;
     }
-  
+
     setSingUpError(null);
     return true;
   };
-  
+
+  const verifyText = (fieldName, text) => {    
+    const errorMessages = {
+      name: "El nombre solo puede contener letras",
+      lastName: "El apellido solo puede contener letras"
+    };
+
+    if (!/^[a-zA-Z]+$/.test(text)) {
+      setSingUpError(errorMessages[fieldName]);
+      return false;
+    }
+    
+    setSingUpError(null);
+    return true;
+  };
 
   const verifyPassword = (password) => {
     const minimumQuantity = 8;
@@ -103,9 +125,10 @@ const CreateAnAccount = () => {
               type="text"
               autoComplete="on"
               required
-              onChange={(e) =>
-                handleInputChange("name", e.target.value, setUser)
-              }
+              onChange={(e) => {
+                handleInputChange("name", e.target.value, setUser);
+                verifyText("name", e.target.value);
+              }}
             />
             <label>Nombre</label>
             <div className="user-box">
@@ -113,9 +136,10 @@ const CreateAnAccount = () => {
                 type="text"
                 autoComplete="on"
                 required
-                onChange={(e) =>
-                  handleInputChange("lastName", e.target.value, setUser)
-                }
+                onChange={(e) => {
+                  handleInputChange("lastName", e.target.value, setUser);
+                  verifyText("lastName", e.target.value);
+                }}
               />
               <label>Apellido</label>
             </div>
