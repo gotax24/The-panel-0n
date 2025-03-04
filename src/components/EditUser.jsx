@@ -19,6 +19,14 @@ const EditUser = ({ user, id, closeModal, setData }) => {
   const [emailError, setEmailError] = useState(null);
 
   const handleUpdate = (e) => {
+    if (
+      dataEdit.name === "" ||
+      dataEdit.lastName === "" ||
+      dataEdit.email === "" ||
+      dataEdit.password === ""
+    )
+      return;
+
     e.preventDefault();
     UpdateData(dataEdit, id, setData);
     closeModal();
@@ -92,6 +100,10 @@ const EditUser = ({ user, id, closeModal, setData }) => {
             {loading ? "Cambiando la informacion..." : "Confirmar cambio"}
           </button>
         </form>
+        {(dataEdit.name === "" ||
+          dataEdit.lastName === "" ||
+          dataEdit.email === "" ||
+          dataEdit.password === "") &&( <p>Hay uno o varios campos vacios</p>)}
         {emailError ||
           (error && <p className="error-form">{emailError || error}</p>)}
       </div>

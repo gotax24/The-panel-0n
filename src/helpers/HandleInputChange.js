@@ -1,12 +1,16 @@
 export const handleInputChange = (fields, value, setState, setState2) => {
-    if (fields === "email" && !value.includes("@")) return setState2("Ingresar un correo valido");
+  const emailRegex =
+    /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|hotmail\.com|yahoo\.com|icloud\.com|protonmail\.com)$/;
 
-    setState((prevUser) => ({
-      ...prevUser,
-      [fields]: value,
-    }));
+  if (fields === "email" && !emailRegex.test(value))
+    return setState2( "El email esta incompleto, debe ser de un proveedor válido (Gmail, Outlook, Yahoo, etc.)");
 
-    if (setState2) {
-      setState2(null);
-    }
-  };
+  setState((prevUser) => ({
+    ...prevUser,
+    [fields]: value,
+  }));
+
+  if (setState2) {
+    setState2(null);
+  }
+};

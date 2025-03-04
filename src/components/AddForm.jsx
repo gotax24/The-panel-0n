@@ -17,6 +17,8 @@ const AddForm = ({ title, setData, closeModal }) => {
   const { loading, error, post } = PostData("task");
 
   const update = (e) => {
+    if (task.name === "" || task.description === "" || task.done === "") return;
+
     e.preventDefault();
     post(task, setData, false);
     closeModal();

@@ -35,6 +35,8 @@ const EditForm = ({ title, setData, closeModal }) => {
   }, [data]);
 
   const confirmEdition = (e) => {
+    if (task.name === "" || task.description === "" || task.done === "") return;
+
     e.preventDefault();
     UpdateData(task, task.id, setData);
     closeModal();
@@ -113,6 +115,9 @@ const EditForm = ({ title, setData, closeModal }) => {
             {loadingTask || loading ? "Cambiando" : "Confirmar Cambio"}
           </button>
         </form>
+        {(task.name === "" || task.description === "" || task.done === "") && (
+          <p>Hay un o varios campos vacios</p>
+        )}
         {errorTask ||
           (error && <p className="error-form">{errorTask || error} </p>)}
       </div>

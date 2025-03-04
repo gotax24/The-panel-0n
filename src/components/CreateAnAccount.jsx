@@ -72,7 +72,8 @@ const CreateAnAccount = () => {
       lastName: "El apellido solo puede contener letras"
     };
 
-    if (!/^[a-zA-Z]+$/.test(text)) {
+    //solo permite texto en name y lastName 
+    if (!/^[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]+$/.test(text)) {
       setSingUpError(errorMessages[fieldName]);
       return false;
     }
